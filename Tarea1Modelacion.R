@@ -2,6 +2,9 @@
 # Mauricio Nicolás Arismendi Aedo
 install.packages("magrittr", dependencies = TRUE)
 install.packages("dplyr", dependencies = TRUE)
+install.packages("devtools", dependencies = TRUE)
+install.packages("SamplingUtil", dependencies = TRUE)
+
 
 pob1 <- rnorm(n = 1200, mean = 8, sd = 2.1)
 
@@ -20,21 +23,23 @@ La diferencia radica en que, a mayor tamaño muestral, los valores del histogram
 la distribución normal, (Gaussiana).  Esto lo explica el Teorema Central del Límite
 
 
-pob2 <- 1:200
+pob2 <- data.frame(1:200)
 pob2
 
+library(devtools)
+install_github("DFJL/SamplingUtil")
+library(SamplingUtil)
+
+
 muest1 <- sample(pob2, size=20, replace=FALSE)
+
 muest2 <- sample(pob2, size=60, replace=FALSE)
+
+muest3 <- sys.sample(N=nrow(pob2)+1, n = 40)
+muest3
 
 muest1 
 muest2
-muest3 <- sample(pob2, size=200, by=5)
+muest3
 
-i <- 1  #Inicializamos i con valor de 1
 
-for (i in pob2){ #por cada i en pob2
-  muestreo <- print(i*5) #le pedimos que imprima en objeto "muestreo" eso
-}
-muestreo
-
-sys.sample(120, 20)
