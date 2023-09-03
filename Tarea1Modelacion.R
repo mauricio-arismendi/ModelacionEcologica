@@ -91,3 +91,28 @@ library(ggplot2)
 plot(salida[,1], salida[,2], type="l", lwd=2, xlab="Tiempo (horas)",
      ylab="Tam. Poblacional", col="chocolate4", xlim=c(0, 2),
      main="Crecimiento Exponencial (positivo)", las=1, ylim=c(0, 3000))
+
+# vamos a ver los tiempos que pide: 30 min, 1 hr y 2 hrs.
+tiempito <- seq(0, 2, by = 0.5) #divide la hora en intervalos de 60 min
+salida2 <- ode(y = individuo.inicial, time = tiempito, func=coli, parms = tasa_crecimiento)
+salida2
+
+#cargo nueva funcion con nuevas variables (el tratamiento pues)
+tasa_tratamiento <- c(r=-3.6)
+individuosTotales <- c(2922) 
+coli_tratamiento <- function(time, y, parms){
+  n <- y[1]
+  r <- parms[1]
+  dn.dt <- r * n
+  return(list(c(dn.dt)))
+}
+
+#la llamo con la nueva variable obviamente
+salida3 <- ode(y = individuosTotales, time = tiempo1, func=coli_tratamiento, parms = tasa_tratamiento)
+salida3
+
+#hago un lindo gráfico de la masacre de bacterias
+plot(salida3[,1], salida3[,2], type="l", lwd=2, xlab="Tiempo (horas)",
+     ylab="Tam. Poblacional", col="chocolate", xlim=c(0, 2),
+     main="Crecimiento Exponencial pero negativo", las=1, ylim=c(0, 3000))
+
