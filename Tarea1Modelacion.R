@@ -11,6 +11,7 @@ install.packages("dplyr", dependencies = TRUE)
 install.packages("devtools", dependencies = TRUE)
 install.packages("SamplingUtil", dependencies = TRUE)
 install.packages("ggplot2", dependencies = TRUE)
+
 #1
 #creamos pob1 con lo pedido
 pob1 <- rnorm(n = 1200, mean = 8, sd = 2.1)
@@ -54,7 +55,7 @@ muest3 <- sys.sample(N=nrow(pob2)+1, n = 40)
 #también se puede hacer muestreo sistemático utilizando
 # un bucle for, asi:
 
-
+ #lo dejé para después y me dio flojera hacerlo. Pero lo haré en algún momento.
 
 #cargamos estos datos en histogramas
 hist(muest1)
@@ -100,6 +101,9 @@ salida2
 #cargo nueva funcion con nuevas variables (el tratamiento pues)
 tasa_tratamiento <- c(r=-3.6)
 individuosTotales <- c(2922) 
+tiempo2 <- seq(0, 3, by=0.01666) #divide la hora en intervalos de 60 min
+
+
 coli_tratamiento <- function(time, y, parms){
   n <- y[1]
   r <- parms[1]
@@ -108,7 +112,7 @@ coli_tratamiento <- function(time, y, parms){
 }
 
 #la llamo con la nueva variable obviamente
-salida3 <- ode(y = individuosTotales, time = tiempo1, func=coli_tratamiento, parms = tasa_tratamiento)
+salida3 <- ode(y = individuosTotales, time = tiempo2, func=coli_tratamiento, parms = tasa_tratamiento)
 salida3
 
 #hago un lindo gráfico de la masacre de bacterias
@@ -116,3 +120,46 @@ plot(salida3[,1], salida3[,2], type="l", lwd=2, xlab="Tiempo (horas)",
      ylab="Tam. Poblacional", col="chocolate", xlim=c(0, 2),
      main="Crecimiento Exponencial pero negativo", las=1, ylim=c(0, 3000))
 
+#4
+
+#de nuevo hacemos una funcion, esta vez con K
+#que será una asintota horizontal:
+crecim_logistico <- function(times, y, parms) {
+  n <- y[1]
+  r <- parms[1]
+  k <- parms[2]
+  dn.dt <- r * n * (k - n)/k #esta es la ecuacion
+  return(list(c(dn.dt)))
+}
+
+#le tiramos parametros:
+parametros_logisticos <- c(r=0.06, k=90)
+inicio <- c(10)
+tiempo3 <- seq(0, 200, by=0.5)
+
+#llamamos la funcion cn esos parametros
+salidaLog <- ode(y = inicio, times = tiempo3, func = crecim_logistico, parms = parametros_logisticos)
+salidaLog
+
+#hacemos un grafico bonito de esto: 
+plot(salidaLog[,1], salidaLog[,2], type="l", xlab="Tiempo (dias)",
+     ylab="Tam. Poblacional", ylim=c(0,100), main="Crecimiento Logistico, K=90",
+     las=1, lwd=2, col="blue", xlim=c(0,150))
+
+abline(h=90, lty=2, lwd=1, col="red")
+text(50, 95, "K = 90 = Capacidad de carga", cex=0.7)
+
+#agregamos los cambios para N
+inicial2 <- c(30)
+nuevosParametros <- c(r=0.06, k=180)
+tiempo4 <- seq(0.1, 5, by=0.01)
+
+
+#
+nuevaSalida <- ode(y = inicial2, times = tiempo4, func = crecim_logistico, parms = nuevosParametros)
+nuevaSalida
+
+#
+plot(salidaLog[,1], salidaLog[,2], type="l", xlab="Tiempo (dias)",
+     ylab="Tam. Poblacional", ylim=c(0,100), main="Crecimiento Logistico, K=90",
+     las=1, lwd=2, col="blue", xlim=c(0,150))
