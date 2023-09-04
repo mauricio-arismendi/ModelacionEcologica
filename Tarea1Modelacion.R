@@ -152,14 +152,17 @@ text(50, 95, "K = 90 = Capacidad de carga", cex=0.7)
 #agregamos los cambios para N
 inicial2 <- c(30)
 nuevosParametros <- c(r=0.06, k=180)
-tiempo4 <- seq(0.1, 5, by=0.01)
+tiempo4 <- seq(0.1, 200, by=0.01)
 
 
-#
+#pasamos nuevos parametros a la funcion crecim_logistico
 nuevaSalida <- ode(y = inicial2, times = tiempo4, func = crecim_logistico, parms = nuevosParametros)
 nuevaSalida
 
-#
-plot(salidaLog[,1], salidaLog[,2], type="l", xlab="Tiempo (dias)",
-     ylab="Tam. Poblacional", ylim=c(0,100), main="Crecimiento Logistico, K=90",
+#hacemos un grafico super boni 
+plot(nuevaSalida[,1], nuevaSalida[,2], type="l", xlab="Tiempo (dias)",
+     ylab="Tam. Poblacional", ylim=c(0,200), main="Crecimiento Logistico, K=90",
      las=1, lwd=2, col="blue", xlim=c(0,150))
+
+abline(h=180, lty=2, lwd=1, col="red")
+text(50, 185, "K = 180 = Capacidad de carga", cex=0.7)
