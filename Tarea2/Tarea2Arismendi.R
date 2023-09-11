@@ -62,3 +62,27 @@ test.spec$cr # observed cumulative species richness
 test.spec$mr # observed mean value of species richness over the n samples
 test.spec$uniques # species encountered in only one sample
 
+# UB species richness
+test.ub<-rich(matrix=spec.ub, nrandom=999,verbose=TRUE)
+test.ub$cr # observed cumulative species richness
+test.ub$mr # observed mean value of species richness over the n samples
+
+# LS species richness
+test.ls<-rich(matrix=spec.ls, nrandom=999,verbose=TRUE)
+test.ls$cr # observed cumulative species richness
+test.ls$mr # observed mean value of species richness over the n samples
+
+
+# MS species richness
+test.ms<-rich(matrix=spec.ms, nrandom=999,verbose=TRUE)
+test.ms$cr # observed cumulative species richness
+test.ms$mr # observed mean value of species richness over the n samples
+
+
+# HS species richness
+test.hs<-rich(matrix=spec.hs, nrandom=999,verbose=TRUE)
+test.hs$cr # observed cumulative species richness
+test.hs$mr # observed mean value of species richness over the n samples
+
+spec
+
