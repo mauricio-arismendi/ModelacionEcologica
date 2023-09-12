@@ -84,10 +84,11 @@ test.hs$cr # observed cumulative species richness
 test.hs$mr # observed mean value of species richness over the n samples
 
 
-#Diversity
+#2
+
+#Medias de diversidad (Shannon)
 mean(diversity(spec.ub))
 mean(diversity(spec.ls))
 mean(diversity(spec.ms))
 mean(diversity(spec.hs))
-
 
