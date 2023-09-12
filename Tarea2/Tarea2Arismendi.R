@@ -5,7 +5,6 @@
 #### Prof. Dr. Andrés Fuentes
 #--------------------------------------------
 
-
 rm(list=ls())
 
 data <- read.csv(file = "C:\\Users\\mauri\\OneDrive\\Desktop\\richness_rncm2016.csv",
@@ -84,5 +83,11 @@ test.hs<-rich(matrix=spec.hs, nrandom=999,verbose=TRUE)
 test.hs$cr # observed cumulative species richness
 test.hs$mr # observed mean value of species richness over the n samples
 
-spec
+
+#Diversity
+mean(diversity(spec.ub))
+mean(diversity(spec.ls))
+mean(diversity(spec.ms))
+mean(diversity(spec.hs))
+
 
