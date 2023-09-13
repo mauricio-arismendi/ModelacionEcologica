@@ -58,31 +58,28 @@ mean(specnumber(spec))
 ?rich()
 
 test.spec<-rich(matrix=spec , nrandom=999,verbose=TRUE)
-test.spec$cr # observed cumulative species richness
-test.spec$mr # observed mean value of species richness over the n samples
-test.spec$uniques # species encountered in only one sample
+test.spec$cr 
+test.spec$mr 
+test.spec$uniques 
 
-# UB species richness
+
 test.ub<-rich(matrix=spec.ub, nrandom=999,verbose=TRUE)
-test.ub$cr # observed cumulative species richness
-test.ub$mr # observed mean value of species richness over the n samples
+test.ub$cr 
+test.ub$mr 
 
-# LS species richness
 test.ls<-rich(matrix=spec.ls, nrandom=999,verbose=TRUE)
-test.ls$cr # observed cumulative species richness
-test.ls$mr # observed mean value of species richness over the n samples
+test.ls$cr 
+test.ls$mr 
 
 
-# MS species richness
 test.ms<-rich(matrix=spec.ms, nrandom=999,verbose=TRUE)
-test.ms$cr # observed cumulative species richness
-test.ms$mr # observed mean value of species richness over the n samples
+test.ms$cr 
+test.ms$mr 
 
 
-# HS species richness
 test.hs<-rich(matrix=spec.hs, nrandom=999,verbose=TRUE)
-test.hs$cr # observed cumulative species richness
-test.hs$mr # observed mean value of species richness over the n samples
+test.hs$cr
+test.hs$mr 
 
 
 #2
@@ -132,22 +129,18 @@ c2cv(com1=all.sp[[3]], com2=all.sp[[4]], nrandom=999, verbose=FALSE)
 spacum.hs <- specaccum(spec.hs, "rarefaction", permutations = 999,
                        conditioned=TRUE, gamma="jack1")
 
-spacum.hs #Revisar resulados
-
 
 spacum.ms <- specaccum(spec.ms, "rarefaction", permutations = 999,
                        conditioned=TRUE, gamma="jack1")
-spacum.ms
 
 spacum.ls <- specaccum(spec.ls, "rarefaction", permutations = 999,
                        conditioned=TRUE, gamma="jack1")
-spacum.ls
 
 spacum.ub <- specaccum(spec.ub, "rarefaction", permutations = 999,
                        conditioned=TRUE, gamma="jack1")
-spacum.ub
 
-#Vamos al plot
+
+#grafico
 plot(spacum.hs, col= "chocolate1", lwd=1.5, ci.lty=0, ci.col="chocolate1", ylim=c(0,35), xlim=c(0,20),
      las=1, cex.lab=1, font.lab=1, ylab="Riq. Especies Acum.",
      xlab="Esfuerzo de Muestreo", main="Curvas de Acumulacion de Especies")
