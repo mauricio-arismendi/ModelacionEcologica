@@ -117,4 +117,11 @@ t.test(ms.div, hs.div, paired=TRUE)
 
 #4
 
+c2cv(com1=all.sp[[1]], com2=all.sp[[2]], nrandom=999, verbose=FALSE) 
+c2cv(com1=all.sp[[1]], com2=all.sp[[3]], nrandom=999, verbose=FALSE) 
+c2cv(com1=all.sp[[1]], com2=all.sp[[4]], nrandom=999, verbose=FALSE) 
 
+c2cv(com1=all.sp[[2]], com2=all.sp[[3]], nrandom=999, verbose=FALSE) 
+c2cv(com1=all.sp[[2]], com2=all.sp[[4]], nrandom=999, verbose=FALSE) 
+
+c2cv(com1=all.sp[[3]], com2=all.sp[[4]], nrandom=999, verbose=FALSE)
