@@ -126,3 +126,40 @@ c2cv(com1=all.sp[[2]], com2=all.sp[[3]], nrandom=999, verbose=FALSE)
 c2cv(com1=all.sp[[2]], com2=all.sp[[4]], nrandom=999, verbose=FALSE) 
 
 c2cv(com1=all.sp[[3]], com2=all.sp[[4]], nrandom=999, verbose=FALSE)
+
+#5
+
+spacum.hs <- specaccum(spec.hs, "rarefaction", permutations = 999,
+                       conditioned=TRUE, gamma="jack1")
+
+spacum.hs #Revisar resulados
+
+
+spacum.ms <- specaccum(spec.ms, "rarefaction", permutations = 999,
+                       conditioned=TRUE, gamma="jack1")
+spacum.ms
+
+spacum.ls <- specaccum(spec.ls, "rarefaction", permutations = 999,
+                       conditioned=TRUE, gamma="jack1")
+spacum.ls
+
+spacum.ub <- specaccum(spec.ub, "rarefaction", permutations = 999,
+                       conditioned=TRUE, gamma="jack1")
+spacum.ub
+
+#Vamos al plot
+plot(spacum.hs, col= "chocolate1", lwd=1.5, ci.lty=0, ci.col="chocolate1", ylim=c(0,35), xlim=c(0,20),
+     las=1, cex.lab=1, font.lab=1, ylab="Riq. Especies Acum.",
+     xlab="Esfuerzo de Muestreo", main="Curvas de Acumulacion de Especies")
+
+lines(spacum.ms, col="chocolate2", lwd=1.5, ci.lty=0, ci.col="chocolate2")
+lines(spacum.ls, col="chocolate3", lwd=1.5, ci.lty=0, ci.col="chocolate3")
+lines(spacum.ub, col="chocolate4", lwd=1.5, ci.lty=0, ci.col="chocolate4")
+
+legend(10,7, c("No quemado", "Baja sev." ,"Media sev.", "Alta sev."), col=c("chocolate4", "chocolate3",
+                                                                             "chocolate2", "chocolate1"), lty=1, lwd=1.4,  cex=0.8, bty="n")
+
+legend("topleft", c("No quemado", "Baja sev." ,"Media sev.", "Alta sev."), col=c("chocolate4", "chocolate3",
+                                                                                 "chocolate2", "chocolate1"), lty=1, lwd=1.4,  cex=0.8, bty="n")
+
+
