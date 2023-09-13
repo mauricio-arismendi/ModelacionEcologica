@@ -92,3 +92,29 @@ mean(diversity(spec.ls))
 mean(diversity(spec.ms))
 mean(diversity(spec.hs))
 
+#3
+library(rich)
+library(vegan)
+
+#creamos indices
+ub.div<-diversity(spec.ub)
+ls.div<- diversity(spec.ls)
+ms.div<-diversity(spec.ms)
+hs.div<-diversity(spec.hs)
+
+
+
+
+t.test(ub.div, ls.div, paired=TRUE)
+t.test(ub.div, ms.div, paired=TRUE)
+t.test(ub.div, hs.div, paired=TRUE)
+
+t.test(ls.div, ms.div, paired=TRUE)
+t.test(ls.div, hs.div, paired=TRUE)
+
+t.test(ms.div, hs.div, paired=TRUE)
+
+
+#4
+
+
