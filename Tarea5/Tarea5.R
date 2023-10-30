@@ -22,3 +22,13 @@
 # 4) Genere recomendaciones para la conservación de la flora isleña 
 #  en base a sus resultados. Considere las fortalezas y limitaciones del análisis 
 #  generado.
+
+install.packages("devtools", dependencies = TRUE)
+library(devtools)
+install_github("kamapu/Lexiguel")
+library(Lexiguel)
+data(rc_gaps)
+data(rc_gaps.env)
+
+rc_gaps
+rc_gaps.env
