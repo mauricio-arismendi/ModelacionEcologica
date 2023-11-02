@@ -71,5 +71,9 @@ noInvadido <- subset(rc_gaps.env, gaptype == "No invadido")
 Invadido <- subset(rc_gaps.env, gaptype == "invadido")
 Tratado <- subset(rc_gaps.env, gaptype == "tratado")
 
+#Calculamos índices de Pielou y Shannon-Wiener
 
+library(vegan)
+H <- diversity(rc_gaps$riq)
+J <- H/log(specnumber(rc_gaps$riq))
 
