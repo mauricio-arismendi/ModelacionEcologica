@@ -34,3 +34,39 @@ data(rc_gaps.env)
 
 rc_gaps
 rc_gaps.env
+
+summary(rc_gaps)
+rc_gaps <- as.data.frame(rc_gaps)
+str(rc_gaps)
+str(rc_gaps.env)
+
+rc_gaps.env
+rc_gaps.env <- as.data.frame(rc_gaps.env)
+summary(rc_gaps.env)
+summary(rc_gaps)
+
+rc_gaps.env$gaptype <- as.factor(rc_gaps.env$gaptype)
+rc_gaps.env$rank.area <- as.factor(rc_gaps.env$rank.area)
+
+#ordenamos con nombre los gaptypes
+levels(rc_gaps.env$gaptype) <- c("No invadido", "tratado", "invadido")
+
+#rikeza
+rc_gaps$riq <- rowSums(rc_gaps)
+rc_gaps$riq
+
+#Descriptive statistics
+summary(rc_gaps)
+summary(rc_gaps.env)
+
+tapply(rc_gaps.env$area, rc_gaps.env$gaptype, summary)
+tapply(rc_gaps.env$area, rc_gaps.env$gaptype, sd)
+tapply(rc_gaps.env$area, rc_gaps.env$gaptype, var)
+
+tapply(rc_gaps.env$riq, rc_gaps.env$gaptype, summary)
+tapply(rc_gaps.env$riq, rc_gaps.env$gaptype, sd)
+tapply(rc_gaps.env$riq, rc_gaps.env$gaptype, var)
+
+noInvadido <- subset(rc_gaps.env, gaptype == "No invadido")
+
+
