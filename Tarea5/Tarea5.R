@@ -68,5 +68,8 @@ tapply(rc_gaps.env$riq, rc_gaps.env$gaptype, sd)
 tapply(rc_gaps.env$riq, rc_gaps.env$gaptype, var)
 
 noInvadido <- subset(rc_gaps.env, gaptype == "No invadido")
+Invadido <- subset(rc_gaps.env, gaptype == "invadido")
+Tratado <- subset(rc_gaps.env, gaptype == "tratado")
+
 
 
