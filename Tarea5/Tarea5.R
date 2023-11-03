@@ -1,27 +1,12 @@
 ## Tarea 5 ##
 
-# Las bases de datos: rc_gaps y rc_gaps.env (dentro de paquete Lexiguel) 
-# contienen información de especies de flora vascular [1=presencia; 0=ausencia] , 
-# tamaño (m2) y  tipo de claro según su condición de invasión en un muestreo 
-# realizado para 48 áreas  de apertura de dosel producidas por caída de árboles, 
-# en el bosque de la isla Robinson Crusoe.
+# Mauricio Arismendi Aedo
+# m.arismendi02@ufromail.cl
+# Ingeniería en Recursos Naturales
+# Saludos al(a) ayudante que va a revisar esto
+# Profesor: Rodrigo Vargas.
+# UFRO. 
 
-# 1) Considerando ambas bases de dato, genere una tabla de estadística 
-# descriptiva de los claros según su condición de invasión Incluya estadígrafos 
-# para riqueza de especies y los tamaños considerando medidas de tendencia central
-# y dispersión para cada categoría de claro. Estas categorías se encuentran 
-# en la columna "gaptype" de la base de datos:  
-#  rc_gaps.env, donde: 1= no invadido; 2= tratado [restauración]; 
-#  3= invadido por especies exóticas.
-
-# 2)  Genere curvas "SLOSS" y grafíquelas de manera separada para claros 
-#  (a) no invadidos, (b) invadidos y (c) tratados
-
-# 3) Comente los gráficos considerando el índice SLOSS.
-
-# 4) Genere recomendaciones para la conservación de la flora isleña 
-#  en base a sus resultados. Considere las fortalezas y limitaciones del análisis 
-#  generado.
 
 rm(list=ls())
 
@@ -55,25 +40,101 @@ levels(rc_gaps.env$gaptype) <- c("No invadido", "tratado", "invadido")
 rc_gaps$riq <- rowSums(rc_gaps)
 rc_gaps$riq
 
+#sumamos gaptype a rc_gaps
+rc_gaps$gaptype <- rc_gaps.env$gaptype
+
+head(rc_gaps)
+str(rc_gaps)
+
 #Descriptive statistics
 summary(rc_gaps)
 summary(rc_gaps.env)
+
+#1
 
 tapply(rc_gaps.env$area, rc_gaps.env$gaptype, summary)
 tapply(rc_gaps.env$area, rc_gaps.env$gaptype, sd)
 tapply(rc_gaps.env$area, rc_gaps.env$gaptype, var)
 
-tapply(rc_gaps.env$riq, rc_gaps.env$gaptype, summary)
-tapply(rc_gaps.env$riq, rc_gaps.env$gaptype, sd)
-tapply(rc_gaps.env$riq, rc_gaps.env$gaptype, var)
-
-noInvadido <- subset(rc_gaps.env, gaptype == "No invadido")
-Invadido <- subset(rc_gaps.env, gaptype == "invadido")
-Tratado <- subset(rc_gaps.env, gaptype == "tratado")
+tapply(rc_gaps$riq, rc_gaps.env$gaptype, summary)
+tapply(rc_gaps$riq, rc_gaps.env$gaptype, sd)
+tapply(rc_gaps$riq, rc_gaps.env$gaptype, var)
 
 #Calculamos índices de Pielou y Shannon-Wiener
 
 library(vegan)
-H <- diversity(rc_gaps$riq)
-J <- H/log(specnumber(rc_gaps$riq))
+Htotal <- diversity(rc_gaps$riq)
+Jtotal <- Htotal/log(specnumber(rc_gaps$riq))
+
+Htotal
+Jtotal
+noInvSP
+
+Hnoinvadido <- diversity(noInvSP$riq)
+Hnoinvadido
+
+Htratado <- diversity(TratSP$riq)
+Htratado
+
+HInvadido <- diversity(InvSP$riq)
+HInvadido
+
+Jnoinvadido <- Hnoinvadido/log(specnumber(noInvSP$riq))
+Jnoinvadido
+
+Jtratado <- Htratado/log(specnumber(TratSP$riq))
+Jtratado
+
+JInvadido <- HInvadido/log(specnumber(InvSP$riq))
+JInvadido
+
+
+
+
+#2
+
+#subsets en .env, que sería en cada tipo
+
+noInvadidoArea <- subset(rc_gaps.env, gaptype == "No invadido")
+InvadidoArea <- subset(rc_gaps.env, gaptype == "invadido")
+TratadoArea <- subset(rc_gaps.env, gaptype == "tratado")
+
+#aquí sería el tipo, pero respecto a las especies halladas
+noInvSP <- subset(rc_gaps, gaptype == "No invadido")
+InvSP <- subset(rc_gaps, gaptype == "invadido")
+TratSP <- subset(rc_gaps, gaptype == "tratado")
+
+
+#y si vemos indices de biodiversidad en cada tipo de claro?
+
+
+#hacemos nuevos subsets sin columnas que no necesitamos
+
+colnames(noInvSP)
+noInvSPnoRiq <- noInvSP[, -c(48,49)]
+invSPnoRiq <- InvSP[, -c(48,49)]
+TratSPnoRiq <- TratSP[, -c(48,49)] 
+
+str(noInvSPnoRiq)
+str(invSPnoRiq)
+str(TratSPnoRiq)
+
+#generamos curvas SLOSS
+curvaNoInvadido <- sloss(noInvSPnoRiq, noInvadidoArea, area)
+curvaInvadido <- sloss(invSPnoRiq, InvadidoArea, area)
+curvaTratado <- sloss(TratSPnoRiq, TratadoArea, area)
+
+#arrejuntamos uno al lado del otro (graficos)
+par(mfrow = c(1,3))
+
+#ploteamos
+plot(curvaNoInvadido, main = "Claros No Invadidos", xlab = "Area Acumulada (m^2)", 
+  ylab = "Especies Acumuladas (Nº)")
+
+plot(curvaInvadido, main = "Claros Invadidos", xlab = "Area Acumulada (m^2)", 
+     ylab = "Especies Acumuladas (Nº)")
+plot(curvaTratado, main = "Claros Tratados", xlab = "Area Acumulada (m^2)", 
+     ylab = "Especies Acumuladas (Nº)")
+
+legend(650, 10, c("Grande a Pequeño", "Pequeño a Grande"), lty=c(1,2), bty="n", cex=0.6)
 
