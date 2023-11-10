@@ -27,11 +27,15 @@ library("party")
 # 1) Caracterice atributos básicos de personas encuestadas comparando quienes reciclan (i.e., separan 
 #    para reciclar) y quienes no reciclan en la UFRO. 
 
+table(db$Gender, db$Recicle)
+table(db$Etnia, db$Recicle)
+table(db$Spirituality, db$Recicle)
+table(db$Exercise, db$Recicle)
 table(db$Asociativity, db$Recicle)
 table(db$Nature.Experience, db$Recicle)
-table(db$Nature.Experience, db$Recicle)
-table(db$Nature.Experience, db$Recicle)
-table(db$Nature.Experience, db$Recicle)
+table(db$Degree.studies, db$Recicle)
+table(db$Faculty, db$Recicle)
+table(db$Advance.years, db$Recicle)
 
 
 barplot(table(db$Asociativity, db$Recicle), beside = TRUE, legend = TRUE, col = c("red", "green"))
