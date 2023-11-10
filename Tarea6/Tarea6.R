@@ -7,7 +7,8 @@
 
 rm(list=ls())
 
-setwd("c:\\Users\\mauri\\OneDrive\\Documents\\GitHub\\ModelacionEcologica\\Tarea6") #windows
+#setwd("c:\\Users\\mauri\\OneDrive\\Documents\\GitHub\\ModelacionEcologica\\Tarea6") #windows
+setwd("/home/mauricio/Documents/ModelacionEcologica/Tarea6")
 list.files()
 
 db <- read.csv("Recicla_ufro_3.csv", header = TRUE, sep = ",")
@@ -16,11 +17,38 @@ head(db)
 tail(db)
 
 db$Recicle[db$Recicle == "1"] <- "SI RECICLA"
-db$Recicla[db$Recicle == "0"] <- "NO RECICLA"
+db$Recicle[db$Recicle == "0"] <- "NO RECICLA"
+db$[db$ == "1"] <- "SI RECICLA"
 
+
+str(db)
+library("party")
 
 # 1) Caracterice atributos básicos de personas encuestadas comparando quienes reciclan (i.e., separan 
 #    para reciclar) y quienes no reciclan en la UFRO. 
+
+table(db$Asociativity, db$Recicle)
+table(db$Nature.Experience, db$Recicle)
+table(db$Nature.Experience, db$Recicle)
+table(db$Nature.Experience, db$Recicle)
+table(db$Nature.Experience, db$Recicle)
+
+
+barplot(table(db$Asociativity, db$Recicle), beside = TRUE, legend = TRUE, col = c("red", "green"))
+barplot(table(db$Nature.Experience, db$Recicle), beside = TRUE, legend = TRUE, col = c("red", "green"))
+
+chi_square <- chisq.test(db$Asociativity, db$Recicle)
+print(chi_square)
+
+anova_result <- aov(Age ~ Recicle, data = db)
+boxplot(db$Age ~ db$Recicle, xlab = "Recicla", ylab = "Edad", col = c("red", "green"), names = c("No Recicla", "Recicla"))
+
+table_data <- table(db$Degree.studies, db$Recicle)
+barplot(table_data, beside = TRUE, legend = TRUE, col = c("red", "green"), 
+        names = c("Pregrado", "Postgrado"), 
+        main = "Reciclaje por Nivel de Estudios")
+
+tapply(db)
 
 
 
