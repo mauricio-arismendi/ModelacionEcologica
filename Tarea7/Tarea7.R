@@ -39,5 +39,13 @@ tail(dune)
 #Profundidad horizonte A suelos respecto a especies y tipo de uso de suelos
 #dune.env$A1
 #plot(table(dune.env$A1, dune.env$Use), beside = TRUE, legend = TRUE, col = c("red", "green"), main = "Tamaño horizonte A por uso") 
+?dune.env
+?dune
 
 plot(dune.env$Use, dune.env$A1, main = "Profundidad Horizonte A, respecto a Uso de Suelo", xlab = "Uso de Suelo", ylab = "Profundidad de Horizonte A")
+tapply(dune.env$A1 , FUN = mean)
+
+plot(dune.env$Management, dune.env$A1, main = "Uso de suelo")
+
+
+#Especies de aacuerdo a Profundidad Horizonte A 
